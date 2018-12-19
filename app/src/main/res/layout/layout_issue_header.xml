@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="issueUIModel"
+            type="com.lovelz.mykotlinproject.model.ui.IssueUIModel"/>
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.v7.widget.CardView
+            style="@style/whiteCard"
+            app:cardBackgroundColor="@color/colorPrimary">
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/issue_header_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp">
+
+                <ImageView
+                    android:id="@+id/issue_header_image"
+                    android:layout_width="90dp"
+                    android:layout_height="90dp"
+                    android:src="@drawable/logo"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:userHeaderSize="@{100}"
+                    app:userHeaderUrl="@{issueUIModel.image}"/>
+
+                <TextView
+                    android:id="@+id/issue_header_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/issue_header_image"
+                    android:layout_marginStart="10dp"
+                    android:text="@{issueUIModel.username}"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/normalTextSize"
+                    android:textStyle="bold"/>
+
+                <LinearLayout
+                    android:id="@+id/issue_status_layout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintTop_toBottomOf="@id/issue_header_name"
+                    app:layout_constraintStart_toEndOf="@id/issue_header_image"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="5dp"
+                    android:gravity="bottom">
+
+                    <com.mikepenz.iconics.view.IconicsTextView
+                        android:id="@+id/issue_status"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:textSize="@dimen/smallTextSize"
+                        android:text="@{`{GSY-ISSUE_ITEM_ISSUE}`+ issueUIModel.status}"
+                        android:textColor="@{(`open`.equals(issueUIModel.status)) ? @color/green : @color/red}"/>
+
+                    <com.mikepenz.iconics.view.IconicsTextView
+                        android:id="@+id/issue_number"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:textSize="@dimen/smallTextSize"
+                        android:text="@{`#` + issueUIModel.issueNum}"
+                        android:textColor="@color/subTextColor"/>
+
+                    <TextView
+                        android:id="@+id/issue_comment"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:singleLine="true"
+                        android:textSize="@dimen/smallTextSize"
+                        android:text="@{`{GSY-ISSUE_ITEM_COMMENT}`+issueUIModel.comment}"
+                        android:textColor="@color/subTextColor"/>
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/issue_action"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/issue_status_layout"
+                    app:layout_constraintStart_toStartOf="@id/issue_header_name"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginTop="10dp"
+                    android:textSize="@dimen/smallTextSize"
+                    android:textColor="@color/white"
+                    android:text="@{issueUIModel.action}"/>
+
+                <TextView
+                    android:id="@+id/issue_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/issue_action"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginTop="20dp"
+                    android:textSize="@dimen/smallTextSize"
+                    android:textColor="@color/white"
+                    android:text="@{issueUIModel.content}"/>
+
+                <TextView
+                    android:id="@+id/issue_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:singleLine="true"
+                    android:textSize="@dimen/smallTextSize"
+                    android:textColor="@color/subTextColor"
+                    android:text="@{issueUIModel.time}"/>
+
+            </android.support.constraint.ConstraintLayout>
+
+        </android.support.v7.widget.CardView>
+
+    </RelativeLayout>
+</layout>

@@ -12,7 +12,7 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.lovelz.mykotlinproject"
-        minSdkVersion 16
+        minSdkVersion 21
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
@@ -53,6 +53,30 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    signingConfigs {
+        debug {
+            storeFile file("../lzkotlin.jks")
+            storePassword "liuzhu1994"
+            keyAlias "mykotlin"
+            keyPassword "liuzhu1994"
+        }
+        release {
+            storeFile file("../lzkotlin.jks")
+            storePassword "liuzhu1994"
+            keyAlias "mykotlin"
+            keyPassword "liuzhu1994"
+        }
+    }
+
+    buildTypes {
+        debug {
+            signingConfig signingConfigs.debug
+        }
+        release {
+            signingConfig signingConfigs.release
+        }
     }
 
 }

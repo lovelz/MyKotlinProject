@@ -37,4 +37,26 @@ object GsonUtils {
         throw IllegalArgumentException("obj can not be empty")
     }
 
+    fun <T> parseJsonToArrayBeans(jsonString: String?, beanClazz: Class<T>): List<T> {
+        if (TextUtils.isEmpty(jsonString)) {
+            throw RuntimeException("parseJsonToArrayBeans jsonString is empty")
+        }
+        val jsonElement = JsonParser().parse(jsonString)
+        if (jsonElement.isJsonNull) {
+            throw RuntimeException("parseJsonToArrayBeans jsonElement is empty")
+        }
+
+        if (!jsonElement.isJsonArray) {
+            throw RuntimeException("parseJsonToArrayBeans jsonElement is not array")
+        }
+
+        val jsonArray = jsonElement.asJsonArray
+        val beans = ArrayList<T>()
+        for (jsonElement2 in jsonArray) {
+            val bean = Gson().fromJson(jsonElement2, beanClazz)
+            beans.add(bean)
+        }
+        return beans
+    }
+
 }

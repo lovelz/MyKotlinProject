@@ -2,13 +2,15 @@ package com.lovelz.mykotlinproject.repository
 
 import android.arch.lifecycle.MutableLiveData
 import android.content.Context
+import android.content.Intent
 import android.util.Base64
 import com.lovelz.mykotlinproject.AppConfig
 import com.lovelz.mykotlinproject.model.bean.LoginRequestModel
 import com.lovelz.mykotlinproject.model.bean.User
-import com.lovelz.mykotlinproject.net.FlatMapResponse2Response
+import com.lovelz.mykotlinproject.module.StartNavigationActivity
 import com.lovelz.mykotlinproject.net.FlatMapResponse2Result
-import com.lovelz.mykotlinproject.net.ResultObserver
+import com.lovelz.mykotlinproject.net.FlatMapResult2Response
+import com.lovelz.mykotlinproject.net.ResultProgressObserver
 import com.lovelz.mykotlinproject.net.RetrofitFactory
 import com.lovelz.mykotlinproject.service.LoginService
 import com.lovelz.mykotlinproject.utils.Debuger
@@ -16,6 +18,7 @@ import com.lovelz.mykotlinproject.utils.LZPreference
 import io.reactivex.Observable
 import io.reactivex.functions.BiFunction
 import io.reactivex.functions.Function
+import org.jetbrains.anko.clearTask
 import retrofit2.Retrofit
 import javax.inject.Inject
 
@@ -82,21 +85,27 @@ class LoginRepository @Inject constructor(private val retrofit: Retrofit, privat
 
         val userService = userRepository.getPersonInfoObservable()
 
+        //将多个Observable对象结合到一起
         val authorizations = Observable.zip(loginService, userService,
                 BiFunction<String, User, User> {_, user ->
                     user
                 }).flatMap {
-            FlatMapResponse2Response(it)
+            FlatMapResult2Response(it)
         }
 
-        RetrofitFactory.executeResult(authorizations, object : ResultObserver<User>() {
+        RetrofitFactory.executeResult(authorizations, object : ResultProgressObserver<User>(context) {
             override fun onSuccess(result: User?) {
+                passwordStorage = password
+                token.value = true
+            }
 
+            override fun onCodeError(code: Int, message: String) {
+                token.value = false
             }
 
             override fun onFailure(e: Throwable, isNetworkError: Boolean) {
+                token.value = false
             }
-
         })
     }
 
@@ -106,6 +115,19 @@ class LoginRepository @Inject constructor(private val retrofit: Retrofit, privat
     fun clearTokenStorage() {
         accessTokenStorage = ""
         userBasicCodeStorage = ""
+    }
+
+    /**
+     * 退出登录
+     * @param context Context
+     */
+    fun logout(context: Context) {
+        userBasicCodeStorage = ""
+        accessTokenStorage = ""
+        userInfoStorage = ""
+        val intent = Intent(context, StartNavigationActivity::class.java)
+        intent.clearTask()
+        context.startActivity(intent)
     }
 
 }

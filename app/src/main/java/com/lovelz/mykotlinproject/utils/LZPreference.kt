@@ -29,7 +29,7 @@ class LZPreference<T>(private val keyName: String, private val default: T) {
             is Float -> putFloat(keyName, value)
             is Boolean -> putBoolean(keyName, value)
             else -> throw IllegalArgumentException("Type is Error, can not be put!")
-        }
+        }.apply()
     }
 
     @Suppress("UNCHECKED_CAST")

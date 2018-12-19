@@ -25,4 +25,6 @@ object AppConfig {
     const val HTTP_TIME_OUT = 20 * 1000L
 
     const val GRAPHIC_HOST = "https://ghchart.rshah.org/"
+
+    const val PAGE_SIZE = 30
 }

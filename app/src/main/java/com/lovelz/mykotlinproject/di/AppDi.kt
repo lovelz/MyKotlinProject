@@ -2,6 +2,7 @@ package com.lovelz.mykotlinproject.di
 
 import android.app.Application
 import com.lovelz.mykotlinproject.App
+import com.lovelz.mykotlinproject.db.RealmFactory
 import com.lovelz.mykotlinproject.net.RetrofitFactory
 import dagger.BindsInstance
 import dagger.Component
@@ -22,7 +23,6 @@ import javax.inject.Singleton
     AppModule::class,
     ActivityBindModule::class
 ])
-
 interface AppComponent {
     @Component.Builder
     interface Builder {
@@ -42,6 +42,12 @@ class AppModule {
     @Provides
     fun providerRetrofit(): Retrofit {
         return RetrofitFactory.instance.retrofit
+    }
+
+    @Singleton
+    @Provides
+    fun providerRealmFactory(): RealmFactory {
+        return RealmFactory.instance
     }
 
 }

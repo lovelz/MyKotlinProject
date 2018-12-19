@@ -4,6 +4,10 @@
     package="com.lovelz.mykotlinproject">
 
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <application
         android:name=".App"
@@ -23,11 +27,24 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".module.StartNavigationActivity"
+
+        <activity
+            android:name=".module.StartNavigationActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppFullTheme"/>
-        <activity android:name=".module.main.MainActivity"
+
+        <activity
+            android:name=".module.main.MainActivity"
             android:screenOrientation="portrait"/>
+
+        <activity
+            android:name=".module.person.PersonActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name=".module.issue.IssueDetailActivity"
+            android:screenOrientation="portrait"/>
+
     </application>
 
 </manifest>

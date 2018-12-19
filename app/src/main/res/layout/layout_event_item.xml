@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View"/>
+
+        <variable
+            name="eventUIModel"
+            type="com.lovelz.mykotlinproject.model.ui.EventUIModel"/>
+
+    </data>
+
+    <android.support.v7.widget.CardView
+        style="@style/whiteCard">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp">
+
+            <ImageView
+                android:id="@+id/event_user_img"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                app:userHeaderUrl="@{eventUIModel.image}"/>
+
+            <TextView
+                android:id="@+id/event_user_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/event_user_img"
+                android:layout_alignBaseline="@id/event_user_img"
+                android:layout_marginStart="10dp"
+                android:singleLine="true"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/smallTextSize"
+                android:text="@{eventUIModel.username}"/>
+
+            <TextView
+                android:id="@+id/event_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:textColor="@color/subTextColor"
+                android:textSize="@dimen/smallTextSize"
+                android:singleLine="true"
+                android:text="@{eventUIModel.time}"/>
+
+            <TextView
+                android:id="@+id/event_action"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/event_user_img"
+                android:layout_margin="5dp"
+                android:singleLine="true"
+                android:textSize="@dimen/smallTextSize"
+                android:textColor="@color/colorPrimary"
+                android:text="@{eventUIModel.action}"/>
+
+            <TextView
+                android:id="@+id/event_des"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/event_action"
+                android:layout_margin="5dp"
+                android:maxLines="3"
+                android:textColor="@color/subTextColor"
+                android:textSize="@dimen/smallTextSize"
+                android:text="@{eventUIModel.des}"
+                android:visibility="@{eventUIModel.des.length() > 0 ? View.VISIBLE : View.GONE}"/>
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+</layout>

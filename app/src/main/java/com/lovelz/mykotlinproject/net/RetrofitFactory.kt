@@ -27,7 +27,7 @@ class RetrofitFactory private constructor() {
 
     private var accessTokenStorage: String by LZPreference(AppConfig.ACCESS_TOKEN, "")
 
-    private var accessBasicCodeStorage: String by LZPreference(AppConfig.USER_BASIC_INFO, "")
+    private var accessBasicCodeStorage: String by LZPreference(AppConfig.USER_BASIC_CODE, "")
 
     val retrofit: Retrofit
 

@@ -11,7 +11,7 @@ import android.view.WindowManager
 import androidx.navigation.NavOptions
 import androidx.navigation.Navigation
 import com.lovelz.mykotlinproject.di.Injectable
-import com.lovelz.mykotlinproject.ui.base.DataBindingExpandUtils
+import com.lovelz.mykotlinproject.ui.holder.base.DataBindingExpandUtils
 
 /**
  * @author lovelz
@@ -35,6 +35,12 @@ abstract class BaseFragment<T : ViewDataBinding> : Fragment(), Injectable {
     abstract fun onCreateView(mainView: View?)
 
     abstract fun getLayoutId(): Int
+
+    open fun actionOpenByBrowser() {}
+
+    open fun actionCopy() {}
+
+    open fun actionShare() {}
 
     /**
      * Navigation的页面跳转
